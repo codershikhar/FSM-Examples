@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Added</title>
+    <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+
+    .create_form {
+        margin: 10px 0px 10px 0px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .even_space_th {
+        display: flex;
+        justify-content: space-evenly;
+    }
+    </style>
+</head>
+<body>
+    {% if error %}
+    <b style="color:red;">Error: {{ error }}</b>
+    {% endif %}
+
+    {% if message %}
+    <b style="color:green;">Message: {{ message }}</b>
+    {% endif %}
+
+    {% if order %}
+    <table style="width:100%">
+        <tr>
+            <th>Id</th>
+            <th>Amount</th>
+            <th>Product</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <th>{{order.id}}</th>
+            <th>{{order.amount}}</th>
+            <th>{{order.product}}</th>
+            <th>{{order.get_status_display}}</th>
+        </tr>
+    </table>
+    {% endif %}
+
+    <a href="/">Go to Home</a>
+
+</body>
+</html>

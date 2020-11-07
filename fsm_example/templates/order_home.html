@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Home</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+
+    .create_form {
+        margin: 10px 0px 10px 0px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .even_space_th {
+        display: flex;
+        justify-content: space-evenly;
+    }
+    </style>
+</head>
+<body>
+    {% if error %}
+    <b style="color:red;">Error: {{ error }}</b>
+    {% endif %}
+
+    <form class="create_form" action="create_order" method="post">
+        {% csrf_token %}
+        <div>
+            <label>Amount</label>
+            <input type="number" name="amount">
+        </div>
+        <div>
+            <label>Product</label>
+            <input type="text" name="product">
+        </div>
+        <button type="submit">Create Order</button>
+    </form>
+
+    <table style="width:100%">
+        <tr>
+            <th>Id</th>
+            <th>Amount</th>
+            <th>Product</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        {% for order in orders %}
+        <tr>
+            <th>{{order.id}}</th>
+            <th>{{order.amount}}</th>
+            <th>{{order.product}}</th>
+            <th>{{order.get_status_display}}</th>
+            <th class="even_space_th">
+                <form action="pay_order" method="post">
+                    {% csrf_token %}
+                    <input value={{ order.id }} name="order_id" hidden>
+                    <button id="pay">Pay</button>
+                </form>
+                <form action="fulfill_order" name="order_id" method="post">
+                    {% csrf_token %}
+                    <input value={{ order.id }} name="order_id" hidden>
+                    <button id="fulfill">Fulfill</button>
+                </form>
+                <form action="cancel_order" name="order_id" method="post">
+                    {% csrf_token %}
+                    <input value={{ order.id }} name="order_id" hidden>
+                    <button id="cancel">Cancel</button>
+                </form>
+                <form action="return_order" name="order_id" method="post">
+                    {% csrf_token %}
+                    <input value={{ order.id }} name="order_id" hidden>
+                    <button id="return">Return</button>
+                </form>
+            </th>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
