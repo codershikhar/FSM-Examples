@@ -9,11 +9,11 @@ class Order(models.Model):
     STATUS_CANCELLED = 3
     STATUS_RETURNED = 4
     STATUS_CHOICES = (
-        (STATUS_CREATED, 'created'),
-        (STATUS_PAID, 'paid'),
-        (STATUS_FULFILLED, 'fulfilled'),
-        (STATUS_CANCELLED, 'cancelled'),
-        (STATUS_RETURNED, 'returned'),
+        (STATUS_CREATED, 'Created'),
+        (STATUS_PAID, 'Paid'),
+        (STATUS_FULFILLED, 'Fulfilled'),
+        (STATUS_CANCELLED, 'Cancelled'),
+        (STATUS_RETURNED, 'Returned'),
     )
     amount = models.DecimalField(max_digits=9, decimal_places=2)
     product = models.CharField(max_length=200)
