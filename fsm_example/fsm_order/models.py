@@ -32,5 +32,5 @@ class Order(models.Model):
         print("Cancel the order")
 
     @transition(field=status, source=STATUS_FULFILLED, target=STATUS_RETURNED)
-    def _return(self):
+    def return_order(self):
         print("Return the order")

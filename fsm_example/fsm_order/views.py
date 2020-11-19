@@ -92,7 +92,7 @@ def return_order(request):
         order = Order.objects.get(pk=order_id)
 
         # transition
-        order._return()
+        order.return_order()
         order.save()
 
         return render(request, 'order_status.html', {'message': 'Order Returned', 'order': order}, status=200)
